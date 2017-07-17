@@ -1,0 +1,38 @@
+class Employee < ActiveRecord::Base
+  belongs_to :department, counter_cache: true
+  has_one :organization, through: :department
+end
+
+class Department < ActiveRecord::Base
+  belongs_to :organization
+  has_many :employees
+end
+
+class Organization < ActiveRecord::Base
+  has_many :departments
+  has_many :employees, through: :departments
+end
+
+class CreateOrganization < ActiveRecord::Migration[5.1]
+  def change
+    create_table :employees do |t|
+      t.string :first_name
+      t.string :last_name
+      t.string :specialization
+      t.integer :work_experience
+      t.integer :age
+      t.belongs_to :department
+    end
+
+    create_table :departments do |t|
+      t.belongs_to :organization
+      t.string :name
+      t.integer :employees_count
+    end
+
+    create_table :organizations do |t|
+      t.string :name
+      t.integer :departments_count
+    end
+  end
+end

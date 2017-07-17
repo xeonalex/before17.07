@@ -1,0 +1,32 @@
+class Teacher < ActiveRecord::Base
+  has_and_belongs_to_many :items
+end
+
+class Student < ActiveRecord::Base
+  has_and_belongs_to_many :carts
+end
+
+class CreateCartsItems < ActiveRecord::Migration[5.1]
+  def change
+    create_table :teachers do |t|
+      t.string :first_name
+      t.string :last_name
+      t.integer :age
+      t.integer :work_experience
+      t.string :specialization
+    end
+
+      create_table :students do |t|
+        t.string :first_name
+        t.string :last_name
+        t.integer :age
+        t.string :workshop
+        t.string :hobby
+    end
+
+    create_join_table :students , :teachers do |t|
+      t.index :student_id
+      t.index :teacher_id
+    end
+  end
+end
