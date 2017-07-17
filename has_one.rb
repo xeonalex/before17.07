@@ -5,6 +5,7 @@
 class User < ActiveRecord::Base
   has_one :cart, primary_key: 'buyer_id', dependent: :delete # видаляємо без колбеків залежні елементи
 end
+
 class Cart < ActiveRecord::Base
 
 end

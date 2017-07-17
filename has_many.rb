@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :orders, class_name: 'UserOrder'
+  has_many :orders, class_name: 'UserOrder', counter_cache: :amount_of_items
 end
 
 class UserOrder < ActiveRecord::Base
